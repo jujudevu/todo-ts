@@ -1,6 +1,6 @@
 import React, {FC, useEffect} from 'react';
-import {ITodo} from "../types/types";
-import TodoItem from "./TodoItem";
+import {ITodo} from "../../types/types";
+import TodoItem from "../TodoItem/TodoItem";
 
 interface ListProps {
     todos: ITodo[];
