@@ -1,78 +1,60 @@
-import { Button, TextField } from "@mui/material";
-import { Field, Form, FormikProps } from "formik";
-import { FC } from "react";
-import { AddTodoValues } from "../formConfiguration";
+import {Button, FormControl, TextField} from "@mui/material";
+import {ErrorMessage, Field, Form, FormikProps} from "formik";
+import React, {FC} from "react";
+import {AddTodoValues} from "../formConfiguration";
+import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 
 type FormContentProps = {
-  props: FormikProps<AddTodoValues>;
+    props: FormikProps<AddTodoValues>;
 };
 
-const FormContent: FC<FormContentProps> = ({ props }) => {
-  return (
-    <Form {...props}>
-      <Field
-        name="title"
-        component={TextField}
-        label="title"
-        variant="standard"
-      />
-      <Field name="task" component={TextField} />
-      <Field name="lifestyle" component={TextField} />
-      {/* <TextField
-        label="Title"
-        name="title"
-        value={values.title}
-        variant="standard"
-        autoComplete="off"
-        onChange={handleChange}
-        fullWidth
-      /> */}
-      {/* <TextField
-        label="Title"
-        name="title"
-        value={values.title}
-        variant="standard"
-        autoComplete="off"
-        onChange={handleChange}
-        fullWidth
-      />
-      <ErrorMessage name="title" />
-      <TextField
-        label="Task"
-        name="task"
-        value={values.task}
-        variant="standard"
-        autoComplete="off"
-        onChange={handleChange}
-        fullWidth
-      />
-      <ErrorMessage name="title" />
-      <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel id="demo-simple-select-standard-label">
-          Lifestyle
-        </InputLabel>
-        <Select
-          labelId="demo-simple-select-standard-label"
-          id="demo-simple-select-standard"
-          value={values.lifestyle}
-          onChange={handleChange}
-          label="Lifestyle"
-          name="lifestyle"
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value="home">Home</MenuItem>
-          <MenuItem value="work">Work</MenuItem>
-          <MenuItem value="hobby">Hobby</MenuItem>
-        </Select>
-      </FormControl>
-      <ErrorMessage name="lifestyle" /> */}
-      <Button type="submit" variant="contained" disabled={!props.dirty}>
-        Add
-      </Button>
-    </Form>
-  );
+const FormContent: FC<FormContentProps> = ({props}) => {
+    return (
+        <Form {...props}>
+            <Field
+                name="title"
+                id="title"
+                component={TextField}
+                label="title"
+                variant="standard"
+                onChange={props.handleChange}
+                value={props.values.title}
+            />
+            <ErrorMessage name="title"/>
+            <Field name="task" id="task" label="task" component={TextField} variant="standard"
+                   onChange={props.handleChange} value={props.values.task}/>
+            <ErrorMessage name="task"/>
+            <Field as="select" name="lifestyle" id="lifestyle" label="Lifestyle" component={FormControl}
+                   variant="standard"
+                   onChange={props.handleChange}
+                   sx={{m: 1, minWidth: 120}}>
+                <InputLabel id="demo-simple-select-standard-label">
+                    Lifestyle
+                </InputLabel>
+                <Select
+                    labelId="demo-simple-select-standard-label"
+                    id="lifestyle"
+                    onChange={props.handleChange}
+                    label="Lifestyle"
+                    name="lifestyle"
+                    value={props.values.lifestyle}
+                >
+                    <MenuItem value="">
+                        <em>None</em>
+                    </MenuItem>
+                    <MenuItem value="home">Home</MenuItem>
+                    <MenuItem value="work">Work</MenuItem>
+                    <MenuItem value="hobby">Hobby</MenuItem>
+                </Select>
+            </Field>
+            <ErrorMessage name="lifestyle"/>
+            <Button type="submit" variant="contained" disabled={!props.dirty}>
+                Add
+            </Button>
+        </Form>
+    );
 };
 
 export default FormContent;
