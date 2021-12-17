@@ -21,14 +21,16 @@ const FormContent: FC<FormContentProps> = ({props}) => {
                 variant="standard"
                 onChange={props.handleChange}
                 value={props.values.title}
+                onBlur={props.handleBlur}
             />
             <ErrorMessage name="title"/>
             <Field name="task" id="task" label="task" component={TextField} variant="standard"
-                   onChange={props.handleChange} value={props.values.task}/>
+                   onChange={props.handleChange} value={props.values.task} onBlur={props.handleBlur}/>
             <ErrorMessage name="task"/>
             <Field as="select" name="lifestyle" id="lifestyle" label="Lifestyle" component={FormControl}
                    variant="standard"
                    onChange={props.handleChange}
+                   onBlur={props.handleBlur}
                    sx={{m: 1, minWidth: 120}}>
                 <InputLabel id="demo-simple-select-standard-label">
                     Lifestyle
@@ -50,7 +52,7 @@ const FormContent: FC<FormContentProps> = ({props}) => {
                 </Select>
             </Field>
             <ErrorMessage name="lifestyle"/>
-            <Button type="submit" variant="contained" disabled={!props.dirty}>
+            <Button type="submit" variant="contained" disabled={!(props.isValid && props.dirty) || props.isSubmitting}>
                 Add
             </Button>
         </Form>
