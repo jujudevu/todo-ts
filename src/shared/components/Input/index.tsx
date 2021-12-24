@@ -1,25 +1,39 @@
-import React, {ChangeEvent, FC} from "react";
-import {InputLabel, OutlinedInput} from "@mui/material";
-import {FieldInputProps, FormikProps} from "formik";
+import React, { ChangeEvent, FC } from "react";
+import cx from "classnames";
+import { InputLabel, OutlinedInput } from "@mui/material";
+import { FieldInputProps, FormikProps } from "formik";
+import { makeStyles } from "@mui/styles";
+import { MuiInputStyles } from "./muiStyles";
 
-type InputProps ={
-    id?:string;
-    name?:string;
-    value?:string | number;
-    label?:string;
-    onBlur?: (value:string) => void;
-    onChange?: (value:string | number) => void;
-    field?: FieldInputProps<string | number>;
-    form?: FormikProps<any>;
-    placeholder?: string;
-}
-const Input: FC<InputProps> =({id,name, label, field, placeholder})=>{
+const useStyles = makeStyles(MuiInputStyles);
 
-    return(
-        <OutlinedInput
-            id={id} name={name} value={field?.value} label={label} onChange={field?.onChange} onBlur={field?.onBlur} placeholder={placeholder}
-        />
-    )
+type InputProps = {
+  id?: string;
+  name?: string;
+  value?: string | number;
+  label?: string;
+  field: FieldInputProps<string | number>;
+  form?: FormikProps<any>;
+  placeholder?: string;
+};
+const Input: FC<InputProps> = ({ id, label, field, placeholder, form }) => {
+  const classes = useStyles();
+
+  return (
+    <OutlinedInput
+      className={cx(classes.root, {
+        [classes.error]:
+          form &&
+          form.errors[field.name] &&
+          form.touched[field.name] &&
+          form.errors[field.name],
+      })}
+      id={id}
+      label={label}
+      placeholder={placeholder}
+      {...field}
+    />
+  );
 };
 
 export default Input;
