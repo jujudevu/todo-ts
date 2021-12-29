@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import "./TodoApp.css";
+import styles from "./_TodoApp.module.scss";
 // @ts-ignore
 import { ITodo } from "types/types";
 import List from "../List/List";
@@ -19,7 +19,7 @@ const TodoApp: FC<{}> = () => {
   };
 
   return (
-    <div className="container">
+    <div className={styles.container}>
       <h2>Todo app</h2>
       <AddTodoForm todo={todo} setTodo={setTodo} />
       <List todos={todo} completeTask={completeTask} />

@@ -1,0 +1,20 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.field{
+  width: 100%;
+}
+.button{
+  display: flex;
+  width: 100%;
+  max-width: 125px;
+  margin: 0 auto;
+  background-color: #ffeb0054;
+  justify-content: center;
+
+  &:hover{
+    background-color: gold;
+  }
+}

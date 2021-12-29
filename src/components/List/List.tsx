@@ -1,6 +1,7 @@
 import React, {FC, useEffect} from 'react';
 import {ITodo} from "../../types/types";
 import TodoItem from "../TodoItem/TodoItem";
+import styles from "./_List.module.scss"
 
 interface ListProps {
     todos: ITodo[];
@@ -14,7 +15,7 @@ const List: FC<ListProps> = ({todos, completeTask}) => {
     }, [todos]);
 
     return (
-        <div>
+        <div className={styles.container}>
             {todos.map((todo: ITodo) => (
                <TodoItem todo={todo} completeTask={completeTask}/>
             ))}
