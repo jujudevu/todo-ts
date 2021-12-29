@@ -7,14 +7,15 @@ import {theme} from "../../../theme";
 import Input from '../../../shared/components/Input/index'
 import Label from "../../../shared/components/Label";
 import Dropdown from "../../../shared/components/Dropdown";
+import {MuiInputStyles} from "../../../shared/components/Input/muiStyles";
+import {makeStyles} from "@mui/styles";
 
 type FormContentProps = {
     props: FormikProps<AddTodoValues>;
 };
-
-// const useStyles = makeStyles()
+const useStyles = makeStyles(MuiInputStyles);
 const FormContent: FC<FormContentProps> = ({props}) => {
-    // const classes = useStyles()
+    const classes = useStyles();
     return (
         <ThemeProvider theme={theme}>
             <Form {...props} className={styles.container}>
@@ -29,22 +30,25 @@ const FormContent: FC<FormContentProps> = ({props}) => {
                     value={props.values.title}
                     onBlur={props.handleBlur}
                     placeholder="Enter title"
+                    autocomplete="off"
                 />
                 <ErrorMessage name="title"/>
                 <Label id="task" text="Task"/>
                 <Field className={styles.field} name="task" id="task" label="Task" component={Input}
                        onChange={props.handleChange} value={props.values.task} onBlur={props.handleBlur}
-                       placeholder="Enter task"/>
+                       placeholder="Enter task"
+                       autocomplete="off"/>
                 <ErrorMessage name="task"/>
                 <Label id="lifestyle" text="Lifestyle"/>
                 <Field className={styles.field} as="select" name="lifestyle" id="lifestyle" label="Lifestyle"
                        component={Dropdown}
                        onChange={props.handleChange}
                        onBlur={props.handleBlur}
-                       sx={{m: 1, minWidth: 120, margin: 0,}}>
+                       autocomplete="off">
+
                 </Field>
                 <ErrorMessage name="lifestyle"/>
-                <Button className={styles.button} type="submit"
+                <Button className={classes.button} type="submit"
                         disabled={!(props.isValid && props.dirty) || props.isSubmitting}>
                     Add
                 </Button>

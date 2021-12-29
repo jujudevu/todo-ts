@@ -4,14 +4,19 @@ import MenuItem from "@mui/material/MenuItem";
 import React, { FC } from "react";
 import Label from "../Label";
 import styles from "components/AddTodoForm/FormContent/_FormContent.module.scss";
+import {makeStyles} from "@mui/styles";
+import {MuiInputStyles} from "../Input/muiStyles";
+import cx from "classnames";
 
 type DropdownProps = {
   id?: string;
-  field?: FieldInputProps<string | number>;
+  field: FieldInputProps<string | number>;
   form?: FormikProps<any>;
 };
 
-const Dropdown: FC<DropdownProps> = ({ id, field }) => {
+const useStyles = makeStyles(MuiInputStyles);
+const Dropdown: FC<DropdownProps> = ({ id, field, form }) => {
+  const classes  = useStyles();
   const items = [
     {
       value: "home",
@@ -30,7 +35,13 @@ const Dropdown: FC<DropdownProps> = ({ id, field }) => {
     <Select
       id={id}
       label="Lifestyle"
-      sx={{ m: 1, minWidth: 120, margin: 0 }}
+      className={cx(classes.root, {
+        [classes.error]:
+        form &&
+        form.errors[field.name] &&
+        form.touched[field.name] &&
+        form.errors[field.name],
+      })}
       {...field}
     >
       <Label id="lifestyle" text="Lifestyle" />

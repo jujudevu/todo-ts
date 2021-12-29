@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect} from 'react';
 import {ITodo} from "../../types/types";
 import {Checkbox} from "@mui/material";
 import styles from './_TodoItem.module.scss'
@@ -11,7 +11,7 @@ export interface TodoItemProps {
 
 const TodoItem: FC<TodoItemProps> = ({todo, completeTask}) => {
     return (
-        <div className={styles.container} key={todo.id}>
+        <div className={todo.completed ? styles.container__completed : styles.container} key={todo.id}>
             <Checkbox sx={{margin: "0 5px 0 0 ", padding: 0,}} id={todo.id} onChange={() => completeTask(todo.id)}
                       checked={todo.completed}/>
             <div className={styles.item}>
